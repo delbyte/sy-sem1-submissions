@@ -890,3 +890,797 @@ Vector after removing the last element: 10 20 30 40
 
 **Conclusion:**
 We have successfully performed various operations on a `vector`, including adding, accessing, and removing elements. This assignment provides a good understanding of how to work with the `vector` container in C++.
+
+## Theory Assignments
+
+### Assignment 1: OOP Features and Basic C++ Concepts
+
+**Question 1:** Explain features of OOP: Encapsulation, Inheritance, Abstraction, Polymorphism, data hiding, class and object.
+
+**Aim:** To understand and explain the fundamental features of Object-Oriented Programming (OOP).
+
+**Objective:** To define and provide examples for Encapsulation, Inheritance, Abstraction, Polymorphism, Data Hiding, Class, and Object.
+
+**Theory:**
+
+*   **Encapsulation:** The bundling of data (attributes) and methods (functions) that operate on the data into a single unit called a class. It restricts direct access to some of an object's components, which is a means of preventing accidental interference and misuse of the data.
+*   **Inheritance:** A mechanism in which one class acquires the properties (attributes and methods) of another class. The class that inherits the properties is called the derived or child class, and the class whose properties are inherited is called the base or parent class.
+*   **Abstraction:** The concept of hiding the complex implementation details and showing only the essential features of the object. It helps in managing complexity by allowing us to focus on what an object does instead of how it does it.
+*   **Polymorphism:** The ability of a message to be displayed in more than one form. It allows us to perform a single action in different ways. For example, a single `draw()` method can be used to draw different shapes like a circle, a square, or a rectangle.
+*   **Data Hiding:** A mechanism of restricting access to the data members of a class. This is typically achieved by declaring the data members as private.
+*   **Class:** A blueprint for creating objects. It is a user-defined data type that holds its own data members and member functions, which can be accessed and used by creating an instance of that class.
+*   **Object:** An instance of a class. When a class is defined, no memory is allocated, but when it is instantiated (an object is created), memory is allocated.
+
+**Conclusion:** Understanding these fundamental concepts is crucial for developing robust and maintainable software using the object-oriented paradigm.
+
+**Question 2:** Write a program demonstrating inline function, static function, friend function, constructor and destructor.
+
+**Aim:** To write a C++ program that demonstrates the use of inline functions, static functions, friend functions, constructors, and destructors.
+
+**Objective:** To practically implement the concepts of inline, static, and friend functions, as well as constructors and destructors in a single C++ program.
+
+**Theory:** See the theory section of Lab Assignment 2.
+
+**Code:** See the code section of Lab Assignment 2.
+
+**Conclusion:** The program successfully demonstrates the implementation and usage of these important C++ features, which are essential for effective object-oriented programming.
+
+### Assignment 2: Inheritance
+
+**Question:** Apply appropriate inheritance type to implement any one of the following problem statement:
+1. Banking System
+2. Hospital management system
+3. Library management system
+... (and others)
+
+**Aim:** To implement a banking system using inheritance in C++.
+
+**Objective:**
+*   To understand and apply the concept of inheritance.
+*   To design a class hierarchy for a banking system.
+*   To implement different types of accounts (e.g., Savings, Checking) that inherit from a base `Account` class.
+
+**Theory:**
+Inheritance is a fundamental concept in OOP that allows a new class to be based on an existing class. The new class inherits the properties and behavior of the existing class. This promotes code reuse and creates a hierarchical relationship between classes.
+
+For a banking system, we can have a base `Account` class with common attributes like account number and balance, and common methods like `deposit()` and `withdraw()`. Then, we can create specialized account types like `SavingsAccount` and `CheckingAccount` that inherit from the `Account` class and add their own specific features (e.g., interest calculation for savings, overdraft protection for checking).
+
+**Code:**
+```cpp
+#include <iostream>
+#include <string>
+
+// Base class
+class Account {
+protected:
+    std::string accountNumber;
+    double balance;
+
+public:
+    Account(std::string accNum, double bal) : accountNumber(accNum), balance(bal) {}
+
+    void deposit(double amount) {
+        balance += amount;
+        std::cout << "Deposited " << amount << ". New balance: " << balance << std::endl;
+    }
+
+    virtual void withdraw(double amount) {
+        if (balance >= amount) {
+            balance -= amount;
+            std::cout << "Withdrew " << amount << ". New balance: " << balance << std::endl;
+        } else {
+            std::cout << "Insufficient balance." << std::endl;
+        }
+    }
+
+    void display() {
+        std::cout << "Account Number: " << accountNumber << ", Balance: " << balance << std::endl;
+    }
+};
+
+// Derived class
+class SavingsAccount : public Account {
+private:
+    double interestRate;
+
+public:
+    SavingsAccount(std::string accNum, double bal, double rate) : Account(accNum, bal), interestRate(rate) {}
+
+    void addInterest() {
+        double interest = balance * interestRate;
+        deposit(interest);
+    }
+};
+
+// Derived class
+class CheckingAccount : public Account {
+private:
+    double overdraftLimit;
+
+public:
+    CheckingAccount(std::string accNum, double bal, double limit) : Account(accNum, bal), overdraftLimit(limit) {}
+
+    void withdraw(double amount) override {
+        if (balance + overdraftLimit >= amount) {
+            balance -= amount;
+            std::cout << "Withdrew " << amount << ". New balance: " << balance << std::endl;
+        } else {
+            std::cout << "Overdraft limit exceeded." << std::endl;
+        }
+    }
+};
+
+int main() {
+    SavingsAccount sa("SA123", 1000, 0.05);
+    sa.display();
+    sa.deposit(500);
+    sa.addInterest();
+    sa.display();
+
+    std::cout << std::endl;
+
+    CheckingAccount ca("CA456", 2000, 500);
+    ca.display();
+    ca.withdraw(2200);
+    ca.display();
+    ca.withdraw(400);
+
+    return 0;
+}
+```
+
+**Input/Output:**
+```
+Account Number: SA123, Balance: 1000
+Deposited 500. New balance: 1500
+Deposited 75. New balance: 1575
+Account Number: SA123, Balance: 1575
+
+Account Number: CA456, Balance: 2000
+Withdrew 2200. New balance: -200
+Account Number: CA456, Balance: -200
+Overdraft limit exceeded.
+```
+
+**Conclusion:**
+We have successfully implemented a simple banking system using inheritance. The `SavingsAccount` and `CheckingAccount` classes inherit from the `Account` class, demonstrating code reuse and the power of inheritance in creating a well-structured and extensible system.
+
+### Assignment 3: Operator Overloading and Virtual Functions
+
+**Question 1:** Implement operator overloading (Binary and Unary).
+
+**Aim:** To implement binary and unary operator overloading in C++.
+
+**Objective:**
+*   To understand the concept of operator overloading.
+*   To learn how to overload binary and unary operators.
+
+**Theory:**
+Operator overloading is a feature in C++ that allows programmers to redefine the behavior of operators for user-defined types (classes). This can make the code more intuitive and readable.
+
+*   **Unary Operator Overloading:** Overloading an operator that takes one operand (e.g., `++`, `--`, `-`).
+*   **Binary Operator Overloading:** Overloading an operator that takes two operands (e.g., `+`, `-`, `*`, `/`).
+
+**Code:**
+```cpp
+#include <iostream>
+
+class Complex {
+private:
+    double real;
+    double imag;
+
+public:
+    Complex(double r = 0, double i = 0) : real(r), imag(i) {}
+
+    // Overloading the binary + operator
+    Complex operator+(const Complex& other) {
+        return Complex(real + other.real, imag + other.imag);
+    }
+
+    // Overloading the unary - operator
+    Complex operator-() {
+        return Complex(-real, -imag);
+    }
+
+    void display() {
+        std::cout << real << " + " << imag << "i" << std::endl;
+    }
+};
+
+int main() {
+    Complex c1(3, 4);
+    Complex c2(1, 2);
+    Complex c3 = c1 + c2; // Binary operator overloading
+
+    std::cout << "c1 = ";
+    c1.display();
+    std::cout << "c2 = ";
+    c2.display();
+    std::cout << "c3 = c1 + c2 = ";
+    c3.display();
+
+    Complex c4 = -c1; // Unary operator overloading
+    std::cout << "c4 = -c1 = ";
+    c4.display();
+
+    return 0;
+}
+```
+
+**Input/Output:**
+```
+c1 = 3 + 4i
+c2 = 1 + 2i
+c3 = c1 + c2 = 4 + 6i
+c4 = -c1 = -3 + -4i
+```
+
+**Conclusion:**
+We have successfully implemented operator overloading for both binary and unary operators. This allows us to use standard operators with our custom `Complex` class, making the code more readable and intuitive.
+
+**Question 2:** Implement virtual function and pure virtual function.
+
+**Aim:** To implement virtual and pure virtual functions in C++.
+
+**Objective:**
+*   To understand the concept of virtual functions and runtime polymorphism.
+*   To learn how to use pure virtual functions to create abstract classes.
+
+**Theory:**
+*   **Virtual Function:** A member function that is declared within a base class and is re-defined (overridden) by a derived class. When you refer to a derived class object using a pointer or a reference to the base class, you can call a virtual function for that object and execute the derived class's version of the function.
+*   **Pure Virtual Function:** A virtual function for which we don't have an implementation. We only declare it. A pure virtual function is declared by assigning 0 in the declaration. A class that has at least one pure virtual function is called an abstract class.
+
+**Code:**
+```cpp
+#include <iostream>
+
+// Abstract base class
+class Shape {
+public:
+    // Pure virtual function
+    virtual float calculateArea() = 0;
+};
+
+class Square : public Shape {
+private:
+    float side;
+
+public:
+    Square(float s) : side(s) {}
+
+    float calculateArea() override {
+        return side * side;
+    }
+};
+
+class Circle : public Shape {
+private:
+    float radius;
+
+public:
+    Circle(float r) : radius(r) {}
+
+    float calculateArea() override {
+        return 3.14159 * radius * radius;
+    }
+};
+
+int main() {
+    Shape* shape;
+    Square s(5);
+    Circle c(3);
+
+    shape = &s;
+    std::cout << "Area of square: " << shape->calculateArea() << std::endl;
+
+    shape = &c;
+    std::cout << "Area of circle: " << shape->calculateArea() << std::endl;
+
+    return 0;
+}
+```
+
+**Input/Output:**
+```
+Area of square: 25
+Area of circle: 28.2743
+```
+
+**Conclusion:**
+We have successfully implemented virtual and pure virtual functions. The `Shape` class is an abstract class with a pure virtual function `calculateArea()`. The `Square` and `Circle` classes inherit from `Shape` and provide their own implementations for `calculateArea()`, demonstrating runtime polymorphism.
+
+### Assignment 4: Templates
+
+**Question 1:** Write C++ code for function template sorting of values (Number/Characters).
+
+**Aim:** To write a C++ function template for sorting an array of any data type.
+
+**Objective:**
+*   To understand the concept of function templates.
+*   To learn how to write a generic sorting function that can work with different data types.
+
+**Theory:**
+Function templates are a powerful feature in C++ that allow you to write generic functions that can work with different data types. You create a function template by using the `template` keyword.
+
+**Code:**
+```cpp
+#include <iostream>
+
+template <typename T>
+void sort(T arr[], int size) {
+    for (int i = 0; i < size - 1; ++i) {
+        for (int j = 0; j < size - i - 1; ++j) {
+            if (arr[j] > arr[j + 1]) {
+                T temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+}
+
+template <typename T>
+void printArray(T arr[], int size) {
+    for (int i = 0; i < size; ++i) {
+        std::cout << arr[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    int intArr[] = {5, 2, 8, 1, 9};
+    char charArr[] = {'d', 'a', 'c', 'b', 'e'};
+
+    std::cout << "Original integer array: ";
+    printArray(intArr, 5);
+    sort(intArr, 5);
+    std::cout << "Sorted integer array: ";
+    printArray(intArr, 5);
+
+    std::cout << "\nOriginal character array: ";
+    printArray(charArr, 5);
+    sort(charArr, 5);
+    std::cout << "Sorted character array: ";
+    printArray(charArr, 5);
+
+    return 0;
+}
+```
+
+**Input/Output:**
+```
+Original integer array: 5 2 8 1 9 
+Sorted integer array: 1 2 5 8 9 
+
+Original character array: d a c b e 
+Sorted character array: a b c d e 
+```
+
+**Conclusion:**
+We have successfully created a function template for sorting that can be used with different data types like integers and characters. This demonstrates the power and flexibility of templates in C++.
+
+**Question 2:** Write C++ code for class template: Number class (int/float) supporting arithmetic operations.
+
+**Aim:** To write a C++ class template for a `Number` class that can work with both `int` and `float` types and support basic arithmetic operations.
+
+**Objective:**
+*   To understand the concept of class templates.
+*   To learn how to create a generic class that can be used with different data types.
+
+**Theory:**
+Class templates allow you to create generic classes. You can create a class template for a `Number` class that can be used to create objects that hold numbers of different types (e.g., `int`, `float`, `double`).
+
+**Code:**
+```cpp
+#include <iostream>
+
+template <typename T>
+class Number {
+private:
+    T value;
+
+public:
+    Number(T val) : value(val) {}
+
+    T getValue() const {
+        return value;
+    }
+
+    Number<T> operator+(const Number<T>& other) const {
+        return Number<T>(value + other.value);
+    }
+
+    Number<T> operator-(const Number<T>& other) const {
+        return Number<T>(value - other.value);
+    }
+
+    Number<T> operator*(const Number<T>& other) const {
+        return Number<T>(value * other.value);
+    }
+
+    Number<T> operator/(const Number<T>& other) const {
+        return Number<T>(value / other.value);
+    }
+};
+
+int main() {
+    Number<int> int1(10);
+    Number<int> int2(5);
+
+    std::cout << "Integer operations:" << std::endl;
+    std::cout << "int1 + int2 = " << (int1 + int2).getValue() << std::endl;
+    std::cout << "int1 - int2 = " << (int1 - int2).getValue() << std::endl;
+    std::cout << "int1 * int2 = " << (int1 * int2).getValue() << std::endl;
+    std::cout << "int1 / int2 = " << (int1 / int2).getValue() << std::endl;
+
+    std::cout << std::endl;
+
+    Number<float> float1(10.5f);
+    Number<float> float2(2.5f);
+
+    std::cout << "Float operations:" << std::endl;
+    std::cout << "float1 + float2 = " << (float1 + float2).getValue() << std::endl;
+    std::cout << "float1 - float2 = " << (float1 - float2).getValue() << std::endl;
+    std::cout << "float1 * float2 = " << (float1 * float2).getValue() << std::endl;
+    std::cout << "float1 / float2 = " << (float1 / float2).getValue() << std::endl;
+
+    return 0;
+}
+```
+
+**Input/Output:**
+```
+Integer operations:
+int1 + int2 = 15
+int1 - int2 = 5
+int1 * int2 = 50
+int1 / int2 = 2
+
+Float operations:
+float1 + float2 = 13
+float1 - float2 = 8
+float1 * float2 = 26.25
+float1 / float2 = 4.2
+```
+
+**Conclusion:**
+We have successfully created a class template for a `Number` class that can perform arithmetic operations on different numeric types. This demonstrates the reusability and type safety provided by class templates.
+
+### Assignment 5: File Handling
+
+**Question 1:** Write C++ code to open file.
+
+i) Using constructor and open function
+ii) Read no of characters in file
+iii) Read first line in file
+iv) Read last line in file.
+
+**Aim:** To write a C++ program that demonstrates various file handling operations.
+
+**Objective:**
+*   To learn how to open and close files in C++.
+*   To read data from a file character by character, line by line.
+
+**Theory:**
+C++ provides a rich set of classes for file handling in the `<fstream>` header. The main classes are `ifstream` (for reading from files), `ofstream` (for writing to files), and `fstream` (for both reading and writing).
+
+**Code:**
+```cpp
+#include <iostream>
+#include <fstream>
+#include <string>
+
+int main() {
+    // Create and write to a file
+    std::ofstream outFile("test.txt");
+    outFile << "This is the first line.\n";
+    outFile << "This is the second line.\n";
+    outFile << "This is the last line.\n";
+    outFile.close();
+
+    // i) Open file using constructor and open function
+    std::ifstream inFile1("test.txt"); // Using constructor
+    if (inFile1.is_open()) {
+        std::cout << "File opened successfully using constructor." << std::endl;
+        inFile1.close();
+    }
+
+    std::ifstream inFile2;
+    inFile2.open("test.txt"); // Using open function
+    if (inFile2.is_open()) {
+        std::cout << "File opened successfully using open function." << std::endl;
+
+        // ii) Read number of characters in file
+        char ch;
+        int count = 0;
+        while (inFile2.get(ch)) {
+            count++;
+        }
+        std::cout << "Number of characters in file: " << count << std::endl;
+        inFile2.close();
+    }
+
+    // iii) Read first line in file
+    std::ifstream inFile3("test.txt");
+    if (inFile3.is_open()) {
+        std::string line;
+        std::getline(inFile3, line);
+        std::cout << "First line of file: " << line << std::endl;
+        inFile3.close();
+    }
+
+    // iv) Read last line in file
+    std::ifstream inFile4("test.txt");
+    if (inFile4.is_open()) {
+        std::string line;
+        std::string lastLine;
+        while (std::getline(inFile4, line)) {
+            lastLine = line;
+        }
+        std::cout << "Last line of file: " << lastLine << std::endl;
+        inFile4.close();
+    }
+
+    return 0;
+}
+```
+
+**Input/Output:**
+```
+File opened successfully using constructor.
+File opened successfully using open function.
+Number of characters in file: 69
+First line of file: This is the first line.
+Last line of file: This is the last line.
+```
+
+**Conclusion:**
+We have successfully demonstrated various file handling operations in C++, including opening files using different methods and reading data from them in different ways.
+
+**Question 2:** Write C++ code for operation using Binary file.
+
+**Aim:** To write a C++ program that performs read and write operations on a binary file.
+
+**Objective:**
+*   To understand the difference between text and binary files.
+*   To learn how to read and write data to a binary file.
+
+**Theory:**
+Binary files store data in the same format as it is stored in memory. This can be more efficient for storing complex data structures. The `fstream` library provides the `ios::binary` flag to open a file in binary mode.
+
+**Code:**
+```cpp
+#include <iostream>
+#include <fstream>
+
+struct Person {
+    char name[50];
+    int age;
+};
+
+int main() {
+    Person p1 = {"Alice", 30};
+    Person p2;
+
+    // Write to a binary file
+    std::ofstream outFile("person.bin", std::ios::binary);
+    outFile.write(reinterpret_cast<char*>(&p1), sizeof(Person));
+    outFile.close();
+
+    // Read from a binary file
+    std::ifstream inFile("person.bin", std::ios::binary);
+    inFile.read(reinterpret_cast<char*>(&p2), sizeof(Person));
+    inFile.close();
+
+    std::cout << "Data read from binary file:" << std::endl;
+    std::cout << "Name: " << p2.name << ", Age: " << p2.age << std::endl;
+
+    return 0;
+}
+```
+
+**Input/Output:**
+```
+Data read from binary file:
+Name: Alice, Age: 30
+```
+
+**Conclusion:**
+We have successfully demonstrated how to read and write data to a binary file in C++. This is a useful technique for storing and retrieving complex data structures efficiently.
+
+### Assignment 6: Standard Template Library (STL)
+
+**Question 1:** Write C++ code for STL using Vector operations.
+
+**Aim:** To write a C++ program that demonstrates the use of the STL `vector` container.
+
+**Objective:**
+*   To understand the concept of the Standard Template Library (STL).
+*   To learn how to use the `vector` container and its various member functions.
+
+**Theory:**
+The Standard Template Library (STL) is a set of C++ template classes to provide common programming data structures and functions such as lists, stacks, arrays, etc. It is a library of container classes, algorithms, and iterators. A `vector` is a dynamic array that can grow or shrink in size as needed.
+
+**Code:**
+```cpp
+#include <iostream>
+#include <vector>
+
+int main() {
+    std::vector<int> vec;
+
+    // Add elements to the vector
+    for (int i = 1; i <= 5; i++) {
+        vec.push_back(i);
+    }
+
+    // Display the contents of the vector
+    std::cout << "Vector elements: ";
+    for (int i = 0; i < vec.size(); i++) {
+        std::cout << vec[i] << " ";
+    }
+    std::cout << std::endl;
+
+    // Access and print the 3rd element
+    std::cout << "The 3rd element is: " << vec.at(2) << std::endl;
+
+    // Remove the last element
+    vec.pop_back();
+
+    // Display the updated vector
+    std::cout << "Vector after removing the last element: ";
+    for (int i = 0; i < vec.size(); i++) {
+        std::cout << vec[i] << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+**Input/Output:**
+```
+Vector elements: 1 2 3 4 5 
+The 3rd element is: 3
+Vector after removing the last element: 1 2 3 4 
+```
+
+**Conclusion:**
+We have successfully demonstrated the use of the STL `vector` container, including adding, accessing, and removing elements. This shows the power and convenience of using STL containers for managing collections of data.
+
+**Question 2:** Write C++ code for STL using queue. Explain stack container adaptor with an example.
+
+**Aim:** To write a C++ program that demonstrates the use of the STL `queue` and `stack` container adaptors.
+
+**Objective:**
+*   To learn how to use the `queue` and `stack` container adaptors.
+*   To understand the difference between a queue (FIFO) and a stack (LIFO).
+
+**Theory:**
+*   **Queue:** A container adaptor that provides a First-In, First-Out (FIFO) data structure. Elements are inserted at the back (`push`) and removed from the front (`pop`).
+*   **Stack:** A container adaptor that provides a Last-In, First-Out (LIFO) data structure. Elements are inserted and removed from the same end, called the top.
+
+**Code (Queue):**
+```cpp
+#include <iostream>
+#include <queue>
+
+int main() {
+    std::queue<int> q;
+
+    // Add elements to the queue
+    for (int i = 1; i <= 5; i++) {
+        q.push(i);
+    }
+
+    // Display the contents of the queue
+    std::cout << "Queue elements: ";
+    while (!q.empty()) {
+        std::cout << q.front() << " ";
+        q.pop();
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+**Input/Output (Queue):**
+```
+Queue elements: 1 2 3 4 5 
+```
+
+**Code (Stack):**
+```cpp
+#include <iostream>
+#include <stack>
+
+int main() {
+    std::stack<int> s;
+
+    // Add elements to the stack
+    for (int i = 1; i <= 5; i++) {
+        s.push(i);
+    }
+
+    // Display the contents of the stack
+    std::cout << "Stack elements: ";
+    while (!s.empty()) {
+        std::cout << s.top() << " ";
+        s.pop();
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+```
+
+**Input/Output (Stack):**
+```
+Stack elements: 5 4 3 2 1 
+```
+
+**Conclusion:**
+We have successfully demonstrated the use of the STL `queue` and `stack` container adaptors. This assignment helps in understanding the FIFO and LIFO data structures and how to implement them using the STL.
+
+### Assignment 7: Exception Handling
+
+**Question:** Write C++ code for exception handling - e.g. Bank account balance below 1000 throw exception.
+
+**Aim:** To write a C++ program that demonstrates exception handling.
+
+**Objective:**
+*   To understand the concept of exception handling in C++.
+*   To learn how to use `try`, `catch`, and `throw` to handle errors.
+
+**Theory:**
+Exception handling is a mechanism in C++ to handle runtime errors. It allows you to transfer control from one part of a program to another. C++ exception handling is built upon three keywords: `try`, `catch`, and `throw`.
+
+*   **`try`:** A `try` block identifies a block of code for which particular exceptions will be activated. It's followed by one or more `catch` blocks.
+*   **`throw`:** A program throws an exception when a problem shows up. This is done using a `throw` keyword.
+*   **`catch`:** A `catch` block is where you handle the exception. It is placed after the `try` block.
+
+**Code:**
+```cpp
+#include <iostream>
+
+class BankAccount {
+private:
+    double balance;
+
+public:
+    BankAccount(double bal) : balance(bal) {}
+
+    void withdraw(double amount) {
+        if (balance - amount < 1000) {
+            throw "Insufficient balance! Minimum balance of 1000 must be maintained.";
+        } else {
+            balance -= amount;
+            std::cout << "Withdrew " << amount << ". New balance: " << balance << std::endl;
+        }
+    }
+};
+
+int main() {
+    BankAccount acc(5000);
+
+    try {
+        acc.withdraw(3000);
+        acc.withdraw(1500);
+    } catch (const char* msg) {
+        std::cerr << "Error: " << msg << std::endl;
+    }
+
+    return 0;
+}
+```
+
+**Input/Output:**
+```
+Withdrew 3000. New balance: 2000
+Error: Insufficient balance! Minimum balance of 1000 must be maintained.
+```
+
+**Conclusion:**
+We have successfully implemented exception handling in a C++ program. The program throws an exception when the bank account balance goes below a certain limit, and the exception is caught and handled gracefully. This demonstrates the importance of exception handling in writing robust and reliable programs.
