@@ -1,11 +1,10 @@
 # Sources
 
 # OOP
-1. Assignments from WhatsApp
-2. Assignments from classroom
-3. OCW (incoming)
+1. assignments.md and image.png and all PDFs
 
 ## Writing pattern- 
+Question
 Aim
 Objective
 Theory
@@ -13,7 +12,7 @@ Code (input and output)
 Conclusion
 
 # DSA
-1. Photo from gallery
+1. assignments.md
 
 ## Writing pattern- 
 Question
