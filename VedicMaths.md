@@ -330,7 +330,7 @@ The problems given, $\frac{x+3}{x+5} = \frac{2x+6}{2x+10}$ and $\frac{x-2}{x-4} 
 
 ### Question 2: Approximations
 
-**Approximations for roots.**
+**Part 1: Approximations for roots.**
 
 #### Theory
 Vedic mathematics provides simple methods for approximating square roots. For $\sqrt{N}$, we find a perfect square $a^2$ close to N, and use the formula $\sqrt{N} \approx a + \frac{N-a^2}{2a}$.
@@ -338,6 +338,33 @@ Vedic mathematics provides simple methods for approximating square roots. For $\
 #### Solution
 *   $\sqrt{10} = \sqrt{9+1} \approx 3 + \frac{1}{2 \times 3} = 3.166...$
 *   $\sqrt{41} = \sqrt{36+5} \approx 6 + \frac{5}{2 \times 6} = 6.416...$
+
+**Part 2: Approximations for integrals using Vedic techniques.**
+
+#### Theory
+While not explicitly from a single sutra, methods for numerical integration like the midpoint and trapezoidal rules align with the Vedic approach of using simple, efficient algorithms. These methods break down a complex area into smaller, manageable geometric shapes.
+
+#### Solution
+**i) Use the midpoint rule to estimate $\int_0^1 x^2 dx$ using four subintervals.**
+
+1.  **Intervals:** The interval [0, 1] is divided into 4 subintervals of width $\Delta x = 0.25$:
+    [0, 0.25], [0.25, 0.5], [0.5, 0.75], [0.75, 1].
+2.  **Midpoints:** The midpoints of these subintervals are 0.125, 0.375, 0.625, and 0.875.
+3.  **Calculation:** The integral is approximated by the sum of the areas of the rectangles:
+    $M_4 = \Delta x [f(0.125) + f(0.375) + f(0.625) + f(0.875)]$
+    $M_4 = 0.25 [0.125^2 + 0.375^2 + 0.625^2 + 0.875^2]$
+    $M_4 = 0.25 [0.015625 + 0.140625 + 0.390625 + 0.765625]$
+    $M_4 = 0.25 [1.3125] = 0.328125$.
+4.  **Comparison:** The actual value is $\int_0^1 x^2 dx = [\frac{x^3}{3}]_0^1 = \frac{1}{3} \approx 0.3333...$. The midpoint rule gives a close approximation.
+
+**ii) Use the trapezoidal rule to estimate $\int_0^1 x^2 dx$ using four subintervals.**
+
+1.  **Endpoints:** The endpoints are 0, 0.25, 0.5, 0.75, and 1.
+2.  **Calculation:** The integral is approximated by the sum of the areas of the trapezoids:
+    $T_4 = \frac{\Delta x}{2} [f(0) + 2f(0.25) + 2f(0.5) + 2f(0.75) + f(1)]$
+    $T_4 = \frac{0.25}{2} [0^2 + 2(0.25^2) + 2(0.5^2) + 2(0.75^2) + 1^2]$
+    $T_4 = 0.125 [0 + 2(0.0625) + 2(0.25) + 2(0.5625) + 1]$
+    $T_4 = 0.125 [0 + 0.125 + 0.5 + 1.125 + 1] = 0.125 [2.75] = 0.34375$.
 
 ## Assignment 9
 
@@ -365,10 +392,20 @@ The derivative is $f'(x) = 2x+3$.
 **Derive the distance formula.**
 
 #### Theory
-The distance formula is a direct application of the Pythagorean theorem in a coordinate plane.
+The derivation of the distance formula in a coordinate system is an application of the principles described in the ancient Indian *Shulba Sutras*, specifically the *Baudhayana Sutra*. This sutra is one of the earliest known statements of the principle more commonly known as the Pythagorean theorem.
+
+The sutra states: "dīrghasyākṣaṇayā rajjuḥ pārśvamānī, tiryaṅ mānī, cha yatpṛthagbhūte kurutastadubhayāṅ karoti." This translates to: "A rope stretched along the length of the diagonal produces an area which the vertical and horizontal sides make together."
 
 #### Solution
-For two points $(x_1, y_1)$ and $(x_2, y_2)$, we can form a right-angled triangle with sides of length $|x_2-x_1|$ and $|y_2-y_1|$. The distance 'd' between the points is the hypotenuse. By Pythagoras' theorem, $d^2 = (x_2-x_1)^2 + (y_2-y_1)^2$, so $d = \sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$.
+To apply this to coordinate geometry:
+1.  Consider two points, $P_1(x_1, y_1)$ and $P_2(x_2, y_2)$.
+2.  These points can be seen as vertices of a right-angled triangle, with the third vertex being $P_3(x_2, y_1)$.
+3.  The horizontal side of the triangle has a length of $|x_2 - x_1|$.
+4.  The vertical side of the triangle has a length of $|y_2 - y_1|$.
+5.  The distance 'd' between $P_1$ and $P_2$ is the diagonal (hypotenuse).
+6.  According to the Baudhayana sutra, the square of the diagonal is equal to the sum of the squares of the other two sides.
+7.  Therefore, $d^2 = (x_2 - x_1)^2 + (y_2 - y_1)^2$.
+8.  Taking the square root gives the distance formula: $d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}$.
 
 ### Question 2: Equation of a Circle
 
