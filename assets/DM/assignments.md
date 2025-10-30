@@ -1,0 +1,1 @@
+Solve all assignments from the 1 to 6, (last two are in png format, the rest are in PDF) with LaTeX syntax. These are undergraduate level assignments. Make sure there are headings for each main assignment, sub headings for both questions in the assignment, and then finally any proof in LaTeX if needed, and code in CPP if needed.
